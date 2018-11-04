@@ -94,7 +94,7 @@ After being built, you can now connect to sbcl inside docker.
 docker run --rm -it -p 7379:7379 -v $(pwd)/syte.blog:/usr/local/share/common-lisp/source/syte.blog syte/blog sbcl
 
 # replace 'syte/blog' with the one defined during docker build
-# -v mounts the ./source folder to /usr/local/share/common-lisp/source in the docker image
+# -v mounts the ./syte.blog folder to /usr/local/share/common-lisp/source/syte.blog in the docker image
 # -p 7379:7379 mapping port 7379 to localhost, since this is the default port used by Sytes
 ```
 
