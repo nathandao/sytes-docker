@@ -45,7 +45,7 @@ Here is an example:
 The full article/tutorial can be read [here](http://lisperator.net/sytes/). If you find
 Sytes as interesting as I do, I hope you would also find this Docker setup a little handy.
 
-This is pretty much a work in progress. I guess the only missing pieace is getting
+This is pretty much a work in progress. I guess the only missing piece is getting
 `/assets` to be served from the same docker image.
 
 Built on top of daewok's [lisp-devel-docker](https://github.com/daewok/lisp-devel-docker)
