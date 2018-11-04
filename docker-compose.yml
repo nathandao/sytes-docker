@@ -1,0 +1,10 @@
+version: '3'
+services:
+  syte_web:
+    build: .
+    ports:
+      - "7379:7379"
+    volumes:
+      - ./syte.blog:/usr/local/share/common-lisp/source/syte.blog
+    stdin_open: true
+    tty: true
