@@ -24,6 +24,24 @@ template engine with a Lispy syntax and a Hunchentoot dispatcher that maps URLs 
 templates. Sytes is the PHP of Common Lisp (I hope this doesn't sound like an insult).
 If you're a Lisper, you might enjoy it."
 
+Here is an example:
+
+```
+;; a semicolon in the first column starts a comment
+;; and it's discarded from the output
+<h1>{page.title}</h1>
+
+;; show links
+<ul class="links">
+  {(foreach link '(("http://foo.com" . "The Foo")
+                   ("http://bar.com" . "The Bar")
+                   ("http://baz.com" . "The Baz"))
+     (let ((url (car link))
+           (name (cdr link)))
+       {<li><a href="{\url}">{\name}</a></li>}))}
+</ul>
+```
+
 The full article/tutorial can be read [here](http://lisperator.net/sytes/). If you find
 Sytes as interesting as I do, I hope you would also find this Docker setup a little handy.
 
