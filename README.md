@@ -36,7 +36,7 @@ Dockerfile for `quicklisp`. Comes bundled with:
 - sbcl
 - quicklisp
 - sytes
-- shared `./source` directory with docker's `/usr/local/share/common-lisp/source`
+- shared `./syte.blog` directory with docker's `/usr/local/share/common-lisp/source/sytes.blog`
 
 
 ## (Quickest way) Up and running with Docker Compose: ##
