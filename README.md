@@ -67,7 +67,7 @@ docker-compose build
 docker-compose up
 ```
 
-Your blog should be accessible through localhost:7379
+Your blog should be accessible through http://localhost:7379
 
 The blog's code is located in `./source/syte.blog`. Lisperator -
 the creator of Sytes - wrote an amazing tutorial on how to use Sytes
@@ -126,16 +126,11 @@ docker run --rm -it -p 7379:7379 -v $(pwd)/syte.blog:/usr/local/share/common-lis
 * (sytes:start-server)
 ```
 
-The blog is now available in `localhost:7379`
+The blog is now available in http://localhost:7379
 
 # For emacs user #
 
 If you're using emacs, `slime` is most likely your rhyme.
-
-NOTE: [Building a Docker image](#slower-way-up-and-running-with-docker) instead of using
-`docker-compose` is recommended if you are planning to develop in Emacs. However, the
-advantage is after the initial slow setup with Docker, `slime-docker` will handle all the
-Docker commands. That means technically, we don't have to touch any Docker commands at all!
 
 Make sure you have [slime](https://common-lisp.net/project/slime/) and
 [slime-docker](https://github.com/daewok/slime-docker) installed.
@@ -154,8 +149,15 @@ Add this `slime-docker` configuration to your `.emacs` file:
                                            :ports ((:host-port 7379 :container-port 7379 :ip "127.0.0.1")))))
 ```
 
-Start Emacs, run `M-x slime-docker`. If the magic works the way it's supposed to, the site
-should be available in `localhost:7379`, with a sbcl session started inside Emacs.
+Start Emacs, run `M-x slime-docker`. Quickload sytes, syte.blog and start the server:
+
+```
+CL-USER> (ql:quickload "sytes")
+CL-USER> (ql:quickload "syte.blog")
+CL-USER> (sytes:start-server)
+```
+
+The site should be available in http://localhost:7379
 
 # TODO #
 
