@@ -102,22 +102,12 @@ docker images
 # syte/blog           latest   .........
 ```
 
-After being built, you can now connect to sbcl inside docker.
-
-```bash
-docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
-
-# replace 'syte/blog' with the one defined during docker build
-# -v mounts the ./syte.blog folder to /home/lisp/quicklisp/local-projects/syte.blog/syte.blog in the docker image
-# -p 7379:7379 mapping port 7379 to localhost, since this is the default port used by Sytes
-```
-
 Now it's time to start your blog, exSyting time! Start sbcl inside docker if you have not done so.
 
 ```bash
-docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
+docker run --rm -it -p 8080:8080 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
 
-* (ql:quickload "sytes")
+* (asdf:run-shell-command "service nginx restart")
 * (ql:quickload "syte.blog")
 * (sytes:start-server)
 ```
