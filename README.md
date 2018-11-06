@@ -57,7 +57,7 @@ Dockerfile for `quicklisp`. Comes bundled with:
 
 NOTE: If you're using Emacs, you may find the "For Emacs user" section useful :)
 
-```
+```bash
 git clone https://github.com/nathandao/docker-sytes
 docker-compose build
 docker-compose up
@@ -73,7 +73,7 @@ By using this docker setup, you can skip the installation part.
 To connect to the current running docker, make sure you `docker-compose up`
 session is still running. Open a new terminal session:
 
-```
+```bash
 # get to the project's directory if you have not
 cd docker-sytes
 
@@ -84,7 +84,7 @@ docker-compose run syte_web sbcl
 
 Build docker image
 
-```
+```bash
 # clone the repository
 git clone https://github.com/nathandao/docker-sytes
 
@@ -94,7 +94,7 @@ docker build -t syte/blog .
 
 Confirm your new image is listed in `docker images`
 
-```
+```bash
 docker images
 
 # Output:
@@ -104,7 +104,7 @@ docker images
 
 After being built, you can now connect to sbcl inside docker.
 
-```
+```bash
 docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
 
 # replace 'syte/blog' with the one defined during docker build
@@ -114,7 +114,7 @@ docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-proje
 
 Now it's time to start your blog, exSyting time! Start sbcl inside docker if you have not done so.
 
-```
+```bash
 docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
 
 * (ql:quickload "sytes")
@@ -133,7 +133,7 @@ Make sure you have [slime](https://common-lisp.net/project/slime/) and
 
 Add this `slime-docker` configuration to your `.emacs` file:
 
-```
+```elisp
 ;; Do some standard SLIME configuration.
 (slime-setup '(slime-fancy slime-tramp))
 ;; Configure slime-docker to use a specific image with shared volumes
@@ -147,10 +147,10 @@ Add this `slime-docker` configuration to your `.emacs` file:
 
 Start Emacs, run `M-x slime-docker`. Quickload sytes, syte.blog and start the server:
 
-```
-CL-USER> (asdf:run-shell-command "service nginx restart")
-CL-USER> (ql:quickload "syte.blog")
-CL-USER> (sytes:start-server)
+```lisp
+(asdf:run-shell-command "service nginx restart")
+(ql:quickload "syte.blog")
+(sytes:start-server)
 ```
 
 The site should be available in http://localhost:8080
