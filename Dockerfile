@@ -79,7 +79,7 @@ RUN set -x \
             --eval "(ql::without-prompting (dolist (imp '(:sbcl :ccl :abcl :ecl)) (ql:add-to-init-file imp)))" \
     && rm -rf /tmp/*
 
-COPY ./syte.blog /usr/local/share/common-lisp/source/syte.blog
+COPY ./syte.blog /home/lisp/quicklisp/local-projects/syte.blog
 
 RUN cd /usr/local/share/common-lisp/source \
         && git clone https://github.com/nikodemus/sb-daemon.git \

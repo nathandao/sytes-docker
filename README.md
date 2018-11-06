@@ -145,7 +145,7 @@ Add this `slime-docker` configuration to your `.emacs` file:
 (setq slime-docker-implementations `((sbcl ("sbcl")
                                            :image-name "syte/blog"
                                            :mounts ((("/path/to/sytes-docker/syte.blog"
-                                                      . "/usr/local/share/common-lisp/source/syte.blog")))
+                                                      . "/home/lisp/quicklisp/local-projects/syte.blog")))
                                            :ports ((:host-port 7379 :container-port 7379 :ip "127.0.0.1")))))
 ```
 
