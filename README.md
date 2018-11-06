@@ -142,7 +142,7 @@ Add this `slime-docker` configuration to your `.emacs` file:
                                            :image-name "syte/blog"
                                            :mounts ((("/path/to/sytes-docker/syte.blog"
                                                       . "/home/lisp/quicklisp/local-projects/syte.blog")))
-                                           :ports ((:host-port 7379 :container-port 7379 :ip "127.0.0.1")))))
+                                           :ports ((:host-port 8080 :container-port 8080 :ip "127.0.0.1")))))
 ```
 
 Start Emacs, run `M-x slime-docker`. Quickload sytes, syte.blog and start the server:
