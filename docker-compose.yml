@@ -3,8 +3,9 @@ services:
   syte_web:
     build: .
     ports:
-      - "7379:7379"
+      - "8080:8080"
     volumes:
       - ./syte.blog:/home/lisp/quicklisp/local-projects/syte.blog
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
     stdin_open: true
     tty: true

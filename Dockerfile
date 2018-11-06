@@ -23,7 +23,7 @@ RUN echo "deb http://httpredir.debian.org/debian stretch-backports main" >> /etc
                 libenchant-dev libsdl2-dev libqt4-dev cmake libsmokeqt4-dev libnet-dev \
                 libsdl-ttf2.0-dev libczmq-dev libmpg123-dev libmagic-dev freetds-dev \
                 libfann-dev libglpk-dev libpapi-dev unixodbc-dev libpcap-dev \
-                r-base-dev libsane-dev swig libsnappy-dev graphviz gnuplot git \
+                r-base-dev libsane-dev swig libsnappy-dev graphviz gnuplot git nginx \
         || apt-get install --no-install-recommends -y \
                 libcairo2-dev libffi-dev \
                 libsdl1.2-dev libsdl-gfx1.2-dev libsdl-mixer1.2-dev libsdl-image1.2-dev \
@@ -80,11 +80,13 @@ RUN set -x \
     && rm -rf /tmp/*
 
 COPY ./syte.blog /home/lisp/quicklisp/local-projects/syte.blog
+COPY ./nginx/sites-enabled /etc/nginx/sites-enabled
 
 RUN cd /usr/local/share/common-lisp/source \
         && git clone https://github.com/nikodemus/sb-daemon.git \
         && git clone https://github.com/mishoo/sytes.git
 
-CMD sbcl --eval "(ql:quickload \"sytes\")" \
-         --eval "(ql:quickload \"syte.blog\")" \
-         --eval "(sytes:start-server)"
+CMD service nginx restart \
+    && sbcl --eval "(ql:quickload \"sytes\")" \
+            --eval "(ql:quickload \"syte.blog\")" \
+            --eval "(sytes:start-server)" \

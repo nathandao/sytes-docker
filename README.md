@@ -1,4 +1,4 @@
-Docker setup for developing [Sytes](https://github.com/mishoo/sytes)
+Docker setup for developing Sytes - a small Common Lisp library for building simple websites
 ---
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -8,14 +8,12 @@ Docker setup for developing [Sytes](https://github.com/mishoo/sytes)
 - [(Quickest way) Up and running with Docker Compose:](#quickest-way-up-and-running-with-docker-compose)
 - [(Slower way) Up and running with Docker:](#slower-way-up-and-running-with-docker)
 - [For emacs user](#for-emacs-user)
-- [TODO](#todo)
-
 <!-- markdown-toc end -->
 
 
 ## What is Sytes? ##
 
-Quoting from Lisperator's website (Sytes' creator):
+Quoting from [Lisperator's website](http://lisperator.net/sytes/) (Sytes' creator):
 
 "Sytes is a small Common Lisp library for building simple websites. I wouldn't call
 it a framework—it doesn't deal with any of those things you'd expect frameworks to do,
@@ -45,16 +43,14 @@ Here is an example:
 The full article/tutorial can be read [here](http://lisperator.net/sytes/). If you find
 Sytes as interesting as I do, I hope you would also find this Docker setup a little handy.
 
-This is pretty much a work in progress. I guess the only missing piece is getting
-`/assets` to be served from the same docker image.
-
 Built on top of daewok's [lisp-devel-docker](https://github.com/daewok/lisp-devel-docker)
 Dockerfile for `quicklisp`. Comes bundled with:
 
 - sbcl
 - quicklisp
-- sytes
-- shared `./syte.blog` directory with docker's `/usr/local/share/common-lisp/source/sytes.blog`
+- Sytes
+- shared `./syte.blog` directory with docker's `/home/lisp/quicklisp/local-projects/syte.blog/sytes.blog`
+- Nginx proxy for Sytes and `/assets` folder
 
 
 ## (Quickest way) Up and running with Docker Compose: ##
@@ -67,7 +63,7 @@ docker-compose build
 docker-compose up
 ```
 
-Your blog should be accessible through http://localhost:7379
+Your blog should be accessible through http://localhost:8080
 
 The blog's code is located in `./source/syte.blog`. Lisperator -
 the creator of Sytes - wrote an amazing tutorial on how to use Sytes
@@ -109,24 +105,24 @@ docker images
 After being built, you can now connect to sbcl inside docker.
 
 ```
-docker run --rm -it -p 7379:7379 -v $(pwd)/syte.blog:/usr/local/share/common-lisp/source/syte.blog syte/blog sbcl
+docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
 
 # replace 'syte/blog' with the one defined during docker build
-# -v mounts the ./syte.blog folder to /usr/local/share/common-lisp/source/syte.blog in the docker image
+# -v mounts the ./syte.blog folder to /home/lisp/quicklisp/local-projects/syte.blog/syte.blog in the docker image
 # -p 7379:7379 mapping port 7379 to localhost, since this is the default port used by Sytes
 ```
 
 Now it's time to start your blog, exSyting time! Start sbcl inside docker if you have not done so.
 
 ```
-docker run --rm -it -p 7379:7379 -v $(pwd)/syte.blog:/usr/local/share/common-lisp/source/syte.blog syte/blog sbcl
+docker run -it -p 7379:7379 -v $(pwd)/syte.blog:/home/lisp/quicklisp/local-projects/syte.blog/syte.blog syte/blog sbcl
 
 * (ql:quickload "sytes")
 * (ql:quickload "syte.blog")
 * (sytes:start-server)
 ```
 
-The blog is now available in http://localhost:7379
+The blog is now available in http://localhost:8080
 
 # For emacs user #
 
@@ -152,15 +148,9 @@ Add this `slime-docker` configuration to your `.emacs` file:
 Start Emacs, run `M-x slime-docker`. Quickload sytes, syte.blog and start the server:
 
 ```
-CL-USER> (ql:quickload "sytes")
+CL-USER> (asdf:run-shell-command "service nginx restart")
 CL-USER> (ql:quickload "syte.blog")
 CL-USER> (sytes:start-server)
 ```
 
-The site should be available in http://localhost:7379
-
-# TODO #
-
-- [ ] Add support for `/assets`
-- [ ] Deployment with Docker
-- [ ] Publish to Docker Hub?
+The site should be available in http://localhost:8080
