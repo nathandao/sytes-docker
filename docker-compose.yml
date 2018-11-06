@@ -5,6 +5,6 @@ services:
     ports:
       - "7379:7379"
     volumes:
-      - ./syte.blog:/usr/local/share/common-lisp/source/syte.blog
+      - ./syte.blog:/home/lisp/quicklisp/local-projects/syte.blog
     stdin_open: true
     tty: true
