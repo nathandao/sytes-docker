@@ -24,7 +24,7 @@ If you're a Lisper, you might enjoy it."
 
 Here is an example:
 
-```
+```lisp
 ;; a semicolon in the first column starts a comment
 ;; and it's discarded from the output
 <h1>{page.title}</h1>
